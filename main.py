@@ -3,7 +3,7 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, CallbackQueryHandler, MessageHandler, Filters
 
 # Botunuzun API tokenini buraya yazın
-API_TOKEN = '8494883368:AAG9J0uAJ25eQ8GP80jkAsTHN_LhXRMiC7Q'
+API_TOKEN = '8335522588:AAFPlDSfDYQtMNyc-mqxmn261qAqf5w4ITc'
 GROUP_ID = '-4838313432'
 
 # Loglamaq üçün məlumatları göstərəcək
