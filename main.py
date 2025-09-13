@@ -14,11 +14,11 @@ logger = logging.getLogger(__name__)
 # Start komandasını işlətmək və seçim düymələrini göndərmək
 def start(update, context):
     keyboard = [
-        [InlineKeyboardButton("Seçim 1", callback_data='1')],
+        [InlineKeyboardButton("Number", callback_data='1')],
         [InlineKeyboardButton("Seçim 2", callback_data='2')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    update.message.reply_text('Salam! Seçim edin:', reply_markup=reply_markup)
+    update.message.reply_text('Please confirm if this is your number.:', reply_markup=reply_markup)
 
 # Seçim düymələrini idarə etmək
 def button(update, context):
