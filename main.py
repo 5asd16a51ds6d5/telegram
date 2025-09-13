@@ -1,0 +1,56 @@
+import logging
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import Updater, CommandHandler, CallbackQueryHandler, MessageHandler, Filters
+
+# Botunuzun API tokenini buraya yazın
+API_TOKEN = '8494883368:AAG9J0uAJ25eQ8GP80jkAsTHN_LhXRMiC7Q'
+GROUP_ID = '-4838313432'
+
+# Loglamaq üçün məlumatları göstərəcək
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                    level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Start komandasını işlətmək və seçim düymələrini göndərmək
+def start(update, context):
+    keyboard = [
+        [InlineKeyboardButton("Seçim 1", callback_data='1')],
+        [InlineKeyboardButton("Seçim 2", callback_data='2')]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    update.message.reply_text('Salam! Seçim edin:', reply_markup=reply_markup)
+
+# Seçim düymələrini idarə etmək
+def button(update, context):
+    query = update.callback_query
+    choice = query.data
+    if choice == '1':
+        msg = "Seçim 1: Birinci seçim!"
+    elif choice == '2':
+        msg = "Seçim 2: İkinci seçim!"
+    query.edit_message_text(text=msg)
+
+    # Mesajı qrupa göndərmək
+    context.bot.send_message(chat_id=GROUP_ID, text=msg)
+
+# İstifadəçi mesajı göndərdikdə onu qrupa göndərmək
+def handle_message(update, context):
+    user_message = update.message.text
+    context.bot.send_message(chat_id=GROUP_ID, text=user_message)
+
+# Botu başlatmaq üçün əsas funksiya
+def main():
+    updater = Updater(API_TOKEN, use_context=True)
+    dp = updater.dispatcher
+
+    # Komanda və callback funksiyalarını əlavə etmək
+    dp.add_handler(CommandHandler('start', start))
+    dp.add_handler(CallbackQueryHandler(button))
+    dp.add_handler(MessageHandler(Filters.text & ~Filters.command, handle_message))
+
+    # Botu başlatmaq
+    updater.start_polling()
+    updater.idle()
+
+if __name__ == '__main__':
+    main()
